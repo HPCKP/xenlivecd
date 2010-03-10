@@ -7,8 +7,8 @@
     A primeira coisa é que você deve ser root para executar estes passos
  corretamente, uma vez que live-helper faz alguns chroots, mounts, etc...
 
-    O segundo é que o live-helper utilizado é o 1.0.3-1 do Ubuntu Jaunty
- manualmente empacotado no Intrepid.
+    O segundo é que o live-helper utilizado é o 1.0.5-1 do Ubuntu Karmic
+ manualmente empacotado no Debian Lenny.
 
 
     Prcedimento de construção via Makefile:
@@ -49,11 +49,15 @@
    vmlinuz do sistema de arquivos squashfs da dom0. Isso irá liberar ~20MB na
    imagem ISO final, uma vez que estes arquivos são copiados pelo live-helper
    para o raiz do CD.
+
+ 9- Rode ./32-get-windows-gplpv-drivers.sh p
  
- 9- Opicional: Rode ./33-copy-guests.sh para copiar as domUs previamente
+ 10- Opicional: Rode ./33-copy-guests.sh para copiar as domUs previamente
    confeccionadas para o raiz do CD; *
- 
- 10- Rode ./35-remake-iso.sh para refazer a imagem final do Live CD do Xen.
+
+ 11- Rode./34-copy-source-to-iso.sh p
+
+ 12- Rode ./35-remake-iso.sh para refazer a imagem final do Live CD do Xen.
 
 
     Para limpar tudo e iniciar novamente, rode "make dist-clean" no diretório

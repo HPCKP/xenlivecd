@@ -1,0 +1,1 @@
+../init.d/generate-ssh-keys.sh

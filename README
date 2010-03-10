@@ -7,8 +7,8 @@
     First thing is that you must to be root to run this steps properly, since
  live-helper do some chroots, mounts, etc...
 
-    Second is that the live-helper used is 1.0.3-1 from Ubuntu Jaunty manually
- backported to Intrepid.
+    Second is that the live-helper used is 1.0.5-1 from Ubuntu Karmic manually
+ backported to Debian Lenny.
 
 
     Makefile build process:
@@ -30,25 +30,35 @@
 
  4- Run ./15-copy-some-stuff.sh to copy some stuff to be included in your dom0;
 
- 5- Run ./16-get-convirt.sh to get, patch and copy ConVirt to your dom0;
+ 5- Run ./16-get-convirt.sh to get ConVirt in your dom0;
 
- 6- Run ./20-run-lh_build.sh as first step in the iso creation;
+ 6- Run ./17-get-convirture-tools.sh to get Convirture tools;
 
- 6.1- Inside the "interactive shell", do:
+ 7- Run ./20-run-lh_build.sh as first step in the iso creation;
+ 
+  7.1- Inside the "interactive shell", do:
 
-    update-alternatives --config editor # Select option 4 - vim please!
-    cd /usr/lib && ln -s /etc/alternatives/xen-default xen
+    /tmp/01-install-convirt.sh # To install the Convirture GUI
+    /tmp/02-install-xn-suite.sh i386 # To install the xn-Suite
+    /tmp/05-prepare-chroot.sh  # Change the root password to "live" and select
+                               # option 5, vim please!
+    rm -f /tmp/*.sh
     updatedb
+    logout
 
- 7- Run ./30-prepare-binary-for-xen.sh to copy Xen to the root CD directory;
+ 8- Run ./30-prepare-binary-for-xen.sh to copy Xen to the root CD directory;
 
- 8- Run ./31-remove-kernel-of-chroot.sh to remove initrd and vmlinuz from the
+ 9- Run ./31-remove-kernel-of-chroot.sh to remove initrd and vmlinuz from the
    dom0 compressed squash file system. This will save ~20MB in the final iso,
    since these files are copied by the live-helper to the root of the CD.
 
- 9- Optional: Run ./33-copy-guests.sh to copy previous installed domUs; *
+ 10- Run ./32-get-windows-gplpv-drivers.sh to prepare the ISO for drivers;
 
- 10- Run ./35-remake-iso.sh to remake the final Xen Live CD iso image.
+ 11- Optional: Run ./33-copy-guests.sh to copy previous installed domUs; *
+
+ 12- Optional: Run ./34-copy-source-to-iso.sh to copy the ISO generator to the final ISO;
+
+ 13- Run ./35-remake-iso.sh to remake the final Xen Live CD iso image.
 
 
     To clean all and start over again, run "make dist-clean" from top level
@@ -69,7 +79,7 @@
 
     All this work is under the GPL2 license.
 
-    The Quick Guide in portuguese and in english (Thank Google Tradutor) was
+    The Quick Guide in portuguese and in english (Thanks Google Tradutor) was
  written by Thiago Martins. The translation into spanish was written by Leandro
  dos Santos.
 
@@ -91,5 +101,5 @@
  CD with no virtual machines pre-configured on it. But you can find the
  necessary files in the "guests" within the Xen Live CD and copy them to the
  directory "xenlivecd-XY/guests" of the source code and then run the step 2 via
- makefile mode or 9, if you choose step-by-step mode.
+ makefile mode or 12, if you choose step-by-step mode.
 

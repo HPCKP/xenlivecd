@@ -1,14 +1,22 @@
 
- * I think will be nice to merge the ideas behind this scripts to the
- live-helper itself. So in future versions of live-helper, we can create a new
- Xen Live CD just passing some options to live-helper, instead doing all this
- work manually.
+ * Add a serial menu option in GRUB, like this:
+
+  Xen hypervisor options: com1=115200,8n1 console=com1,tty 
+  Linux options: console=ttyS0,115200n8 console=tty0
+
+ * Add to the guide the steps involved in:
+
+   qcow2, lvm2 snapshots, bond network, vlan, bridge, more snmpd and scripts for cacti 
+   Multiple Network Cards + Multiple Bridges on debian lenny
+   NFS Server, iSCSI & live motion
+
+ * Install ConVirt via APT inside the chrooted dom0.
 
  Future releases:
 
- 0.9 Not released. Make a PowerPC version of the Xen Live CD?
+ 0.9 Not released. Change the default GUI manager to ConVirt 1.1.
 
- 1.0 Not released. Make Xen Live CD with full desktop Gnome environment (without
+ 1.0 Not released. Make Xen Live CD with full Gnome desktop environment (without
     any domUs, of course)? But with full GUI management and with Debian Live
     Installer!
 
@@ -19,3 +27,11 @@
 
  1.3 Not released. Add OpenQRM or other web tool to make the Xen Live CD 100%
     useful from the user point of view?
+
+
+
+ * I think will be nice to merge the ideas behind this scripts to the
+ live-helper itself. So in future versions of live-helper, we can create a new
+ Xen Live CD just passing some options to live-helper, instead doing all this
+ work manually.
+

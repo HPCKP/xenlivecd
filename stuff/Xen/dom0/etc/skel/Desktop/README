@@ -29,6 +29,8 @@
 
   3.2 - Installing a virtual Windows
 
+   3.2.1 - Installing the Xen Windows GPL PV drivers
+
   3.3 - Converting HVM to PVM and/or vice-versa
 
    3.3.1 - Creating and converting an HVM
@@ -63,27 +65,27 @@
  paravirtual (PV).
 
     This Live CD contains four of Xen virtual machines, two servers and two work
- stations, but only two are connected to start the Live, minimizing the amount
- of memory needed to run this demonstration. Note that the server01 and server02
- have the same virtual disk in read-only mode and within each domu, we use aufs
- to get a file system in the way of writing in memory, exactly as the Live CD of
- Xen.
+ stations, but only two are booted at the the Xen Live CD startup, minimizing
+ the amount of memory needed to run this demonstration. Note that the server01
+ and server02 have the same virtual disk in read-only mode and within each domU,
+ we use aufs to get a file system in read-write mode in memory, exactly as the
+ Live CD of Xen.
 
     You are free to start the second virtual machine and the second station at
  any time you want, just make sure you have enough memory for them. If you have
- low memory, shut down some machines before connecting other.
+ low memory, shut down some machines before starting others.
 
     In the Xen Live CD, all systems are configured to send the name of the
- machine to DHCP server, so if you have a dynamic DNS configured on your
- network, both the dom0 as the domus in the network will be accessible by their
- names.
+ machine to the DHCP server, so if you have a dynamic DNS configured on your
+ network, both the dom0 as the domUs will be accessible by their names in the
+ network.
 
     Note that the dom0 is limited to 640M, it means that the root file system of
- this live dos not have much room for tests, how to create virtual machines,
- install the Debian packages, etc ... The domus occupy 320M, totalizing 960M for
- this system work properly. The virtual machines located in the Xen Live CD,
- have no swap memory, so do not wait use them without problems, remember, they
- are only for demonstration of Xen.
+ this live dos not have much room for tests, as creating virtual machines,
+ installation of the Debian packages, etc... The domUs occupy 320M, totalizing
+ 960M for this system work properly. The virtual machines located in the Xen
+ Live CD, have no swap memory, so do not wait use them without problems,
+ remember, they are only for demonstration of Xen.
 
     To use the examples of intem 3, will require a local hard disk, that you
  will use to create the disks of virtual machines involved. The best thing to do
@@ -103,10 +105,9 @@
 
     2.1 - The command `xm':
 
-    This command is the most basic to the management of Xen, with it can turn on
- and off the virtual machines, can connect their consoles in short, it is
- perfectly possible to use the Xen only with this tool. All others are optional,
- I believe.
+    This command is the most basic to the management of Xen, you can turn on/off
+ the virtual machines, connect their consoles in short, it is perfectly possible
+ to use the Xen only with this tool. All others are optional, I believe.
 
     Starting the virtual machines:
 
@@ -127,7 +128,7 @@
 
     The console:
 
-    The console in the domu is controlled by the file /etc/event.d/hvc0, to
+    The console in the domU is controlled by the file /etc/event.d/hvc0, to
  connect to it, use:
 
      xm console server01
@@ -235,7 +236,7 @@
      virsh dumpxml guest01 > /home/livexen/Desktop/domains/guest01.xml
      virsh define /home/livexen/Desktop/domains/guest01.xml
 
-    Note: If you can not register the domu, add the following line between the
+    Note: If you can not register the domU, add the following line between the
  tags "<interface type='bridge'> ... </interface>" of the file guest01.xml:
 
     <source bridge='eth0'/>
@@ -346,7 +347,7 @@
      mkdir /tmp/lenny01-root /tmp/ubuntu01-root /tmp/C
 
      mkfs.ext3 -L LENNY01 /dev/mapper/HyperVG01-lenny01--disk1p1
-     mount /dev/mapper/HyperVG01-lenny01--disk1p1 /tmp/ubuntu01-root
+     mount /dev/mapper/HyperVG01-lenny01--disk1p1 /tmp/lenny01-root
 
      mkfs.ext3 -L UBUNTU01 /dev/mapper/HyperVG01-ubuntu01--disk1p1
      mount /dev/mapper/HyperVG01-ubuntu01--disk1p1 /tmp/ubuntu01-root
@@ -387,7 +388,7 @@
 
     3.2 - Installing a virtual Windows
 
-    In the ~livexen/Desktop/Examples/windows01 folder, there are a file called
+    In the ~livexen/Desktop/Examples/windows01 folder, there is a file called
  windows01.hvm, it is prepared to begin the installation process of the Windows.
  Since you have followed the item 3.1.3.
 
@@ -414,12 +415,12 @@
     3.3 - Converting HVM to PVM and/or vice-versa
 
     In the directory of the examples, there are two files, the HVM-ubuntu01.hvm
- and PVM-ubuntu01.cfg. These two files control the same domu, one to start it in
+ and PVM-ubuntu01.cfg. These two files control the same domU, one to start it in
  HVM mode and another to start it in PVM mode.
 
     Basically, the only restriction on this type of conversion, is that
  mandatory that the /boot directory resides on the first partition (or disk) of
- the first virtual disk of the domU, because it uses PyGRUB to start the domu as
+ the first virtual disk of the domU, because it uses PyGRUB to start the domU as
  PVM.
 
     Another pre-requisite will be choosing a modern Linux operating system, with
@@ -438,7 +439,7 @@
  under the /mnt on the live, simply start the installation. Since the
  HVM-ubuntu01.hvm sample file look for /mnt/images/ubuntu-8.10-server-i386.iso.
 
-    This was the method used in creating the domus of the Xen Live CD. In fact
+    This was the method used in creating the domUs of the Xen Live CD. In fact
  they are PVM machines manually converted from PVM.
 
     Once the paths correctly set, start the Windows installation with:
@@ -485,7 +486,7 @@
 
      ./start-graphical-DI.sh
 
-    Once the domu is installed, start it with the command:
+    Once the domU is installed, start it with the command:
 
      xm create -c /etc/xen/xm-debian-curses.cfg
 
@@ -509,7 +510,7 @@
     You should pay attention only to your /etc/fstab, since the Xen HVM machine
  emulates an IDE controller, so your disk will be configured as hda in the HVM
  domU. But if you use a modern system such as Ubuntu, don't worry, it uses the
- UUID option on his fstab. Then just start the HVM domu and you will see your
+ UUID option on his fstab. Then just start the HVM domU and you will see your
  system within a virtual machine.
 
     To start the process, use the following file pre-configured:
@@ -569,8 +570,8 @@
  directory, untar the package, enter the source directory and run the command
  "make i386" or "make amd64", depending on the desired architecture.
 
-    NOTE: This procedure creates a Live CD do Xen without any virtual machine,
-        but is fully functional. You must provide the images examples for the
+    NOTE: This procedure creates a Xen Live CD without any virtual machine, but
+        is fully functional. You must provide the images examples for the
         complete demo. If you have the images in the right place, you can run
         the command "make plusguests-i386 or -amd64" to copy the images of the
         domUs to the final ISO.

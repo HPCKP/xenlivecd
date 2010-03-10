@@ -10,7 +10,7 @@
 # Just to be sure...
 #sleep 3
 
-# Use libvirt to register domU.
+# Use libvirt to register the domUs.
 #
 # dump
 #virsh dumpxml server01 > /etc/xen/server01.xml

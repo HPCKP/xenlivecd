@@ -2,7 +2,7 @@
 
 VERSION=`cat ../VERSION`
 
-if [ ! -d tmp ];then
+if [ ! -d /var/www/release-$VERSION ];then
     mkdir /var/www/release-$VERSION
 fi
 

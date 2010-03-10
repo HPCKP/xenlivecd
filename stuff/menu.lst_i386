@@ -4,26 +4,56 @@ splashimage /boot/grub/splash.xpm.gz
 timeout 30
 
 # Default for most users
-title       Xen 3.2-1 32 bits / Debian GNU/Linux - live, kernel 2.6.26-1-xen-686
+title       Xen 3.2-1 32 bits / Debian dom0, kernel 2.6.26-2-xen-686
 kernel      /live/xen-3.2-1-i386.gz dom0_mem=640M
-module      /live/vmlinuz-2.6.26-1-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256
-module      /live/initrd.img-2.6.26-1-xen-686
+module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256
+module      /live/initrd.img-2.6.26-2-xen-686
 quiet
+
+title       Xen 3.2-1 32 bits Safe Mode / Debian dom0, kernel 2.6.26-2-xen-686
+kernel      /live/xen-3.2-1-i386.gz dom0_mem=640M noreboot noapic
+module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256 acpi=off
+module      /live/initrd.img-2.6.26-2-xen-686
+quiet
+
+title       -
 
 # If you have a 64 bits CPU, you can try this one!
-title       Xen 3.2-1 64 bits / Debian GNU/Linux - live, kernel 2.6.26-1-xen-686
+title       Xen 3.2-1 64 bits / Debian dom0, kernel 2.6.26-2-xen-686
 kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M
-module      /live/vmlinuz-2.6.26-1-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0
-module      /live/initrd.img-2.6.26-1-xen-686
+module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256
+module      /live/initrd.img-2.6.26-2-xen-686
 quiet
 
-title       Debian GNU/Linux - live, kernel 2.6.26-1-686
-kernel      /live/vmlinuz-2.6.26-1-686 boot=live quiet splash username=livexen hostname=xenalive union=aufs
-initrd      /live/initrd.img-2.6.26-1-686
+# Safe mode - Works within the KVM!
+title       Xen 3.2-1 64 bits Safe Mode / Debian dom0, kernel 2.6.26-2-xen-686 (works as a KVM guest)
+kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M noreboot noapic
+module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256 acpi=off
+module      /live/initrd.img-2.6.26-2-xen-686
+quiet
 
-title       Debian GNU/Linux - live, kernel 2.6.26-1-686 (fail-safe mode)
-kernel      /live/vmlinuz-2.6.26-1-686 boot=live quiet splash username=livexen hostname=xenalive union=aufs noapic noapm nodma nomce nolapic nosmp vga=normal
-initrd      /live/initrd.img-2.6.26-1-686
+title       -
+
+# Serial Enabled
+title       Xen 3.2-1 64 bits Serial enabled / Debian dom0, kernel 2.6.26-2-xen-686
+kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M console=com2 com2=57600,8n1
+module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=ttyS1 xencons=ttyS1 max_loop=256
+module      /live/initrd.img-2.6.26-2-xen-686
+quiet
+
+title       -
+
+title       Debian GNU/Linux - KVM host, kernel 2.6.26-2-686
+kernel      /live/vmlinuz-2.6.26-2-686 boot=live quiet splash username=livexen hostname=xenalive union=aufs
+initrd      /live/initrd.img-2.6.26-2-686
+
+title       Debian GNU/Linux - KVM host, kernel 2.6.26-2-686 (fail-safe mode)
+kernel      /live/vmlinuz-2.6.26-2-686 boot=live quiet splash username=livexen hostname=xenalive union=aufs noapic noapm nodma nomce nolapic nosmp vga=normal
+initrd      /live/initrd.img-2.6.26-2-686
+
+title       Boot from 1st Hard Disk
+rootnoverify (hd0)
+chainloader +1
 
 title       memtest86+
 kernel      /live/memtest

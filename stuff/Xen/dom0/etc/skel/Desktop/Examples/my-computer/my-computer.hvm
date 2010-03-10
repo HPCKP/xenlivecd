@@ -62,7 +62,7 @@ name = "my-computer"
 # Random MACs are assigned if not given.
 #vif = [ 'type=ioemu, mac=00:16:3e:00:00:11, bridge=xenbr0, model=ne2k_pci' ]
 # type=ioemu specify the NIC is an ioemu device not netfront
-vif = [ 'type=ioemu, bridge=eth0, mac=22:f9:a9:6f:b1:19' ]
+vif = [ 'type=ioemu, mac=22:f9:a9:6f:b1:19, vifname=mycomputer' ]
 
 #----------------------------------------------------------------------------
 # Define the disk devices you want the domain to have access to, and

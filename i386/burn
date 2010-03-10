@@ -1,0 +1,3 @@
+#! /bin/sh
+
+wodim -v binary.iso

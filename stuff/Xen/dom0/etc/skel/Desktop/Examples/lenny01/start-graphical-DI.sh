@@ -5,5 +5,5 @@ xm create /etc/xen/xm-debian-vfb.cfg install=true \
     install-installer=http://people.debian.org/~joeyh/d-i/images/daily/
 
 echo
-echo "Use VNC or virt-manager to continue this Debian installation..."
+echo "Use VNC, ConVirt or virt-manager to continue this Debian installation..."
 echo

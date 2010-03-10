@@ -356,7 +356,7 @@
      mkdir /tmp/lenny01-root /tmp/ubuntu01-root /tmp/C
 
      mkfs.ext3 -L LENNY01 /dev/mapper/HyperVG01-lenny01--disk1p1
-     mount /dev/mapper/HyperVG01-lenny01--disk1p1 /tmp/ubuntu01-root
+     mount /dev/mapper/HyperVG01-lenny01--disk1p1 /tmp/lenny01-root
 
      mkfs.ext3 -L UBUNTU01 /dev/mapper/HyperVG01-ubuntu01--disk1p1
      mount /dev/mapper/HyperVG01-ubuntu01--disk1p1 /tmp/ubuntu01-root
