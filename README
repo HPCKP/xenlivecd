@@ -1,0 +1,95 @@
+
+                        How to build the Xen Live CD
+
+    These scripts were made to help us set up and run the live-helper to create
+ a new Xen Live CD.
+
+    First thing is that you must to be root to run this steps properly, since
+ live-helper do some chroots, mounts, etc...
+
+    Second is that the live-helper used is 1.0.3-1 from Ubuntu Jaunty manually
+ backported to Intrepid.
+
+
+    Makefile build process:
+
+ 1- Run "make i386|amd64" to create your Xen Live CD image under i386 or amd64
+   subdir;
+
+ 2- Opcional run: "make plusguests-i386 | -amd64" to copy some guests into the
+   live; *
+
+
+    To build the Xen Live CD step-by-step:
+
+ 1- Unpack xenlivecd-VERSION.tar.gz under /usr/src;
+
+ 2- cd /usr/src/xenlivecd-VERSION/[i386|amd64];
+
+ 3- Run ./10-init-lh_config.sh to prepare the base for live-helper;
+
+ 4- Run ./15-copy-some-stuff.sh to copy some stuff to be included in your dom0;
+
+ 5- Run ./16-get-convirt.sh to get, patch and copy ConVirt to your dom0;
+
+ 6- Run ./20-run-lh_build.sh as first step in the iso creation;
+
+ 6.1- Inside the "interactive shell", do:
+
+    update-alternatives --config editor # Select option 4 - vim please!
+    cd /usr/lib && ln -s /etc/alternatives/xen-default xen
+    updatedb
+
+ 7- Run ./30-prepare-binary-for-xen.sh to copy Xen to the root CD directory;
+
+ 8- Run ./31-remove-kernel-of-chroot.sh to remove initrd and vmlinuz from the
+   dom0 compressed squash file system. This will save ~20MB in the final iso,
+   since these files are copied by the live-helper to the root of the CD.
+
+ 9- Optional: Run ./33-copy-guests.sh to copy previous installed domUs; *
+
+ 10- Run ./35-remake-iso.sh to remake the final Xen Live CD iso image.
+
+
+    To clean all and start over again, run "make dist-clean" from top level
+ source directory. Note that the caches of the ".deb" files will not be
+ deleted.
+
+
+    About source sub directories
+
+    The sub directories i386 and amd64 contains all files used in the build
+ process of the Xen Live CD, one directory for each arch.
+
+    The directory "stuff" contains all the stuff needed for the dom0 and the
+ domUs work properly.
+
+    The directory sutff/Xen has two sub directories, the dom0 and domU. These
+ files must be copied to the root of dom0 and domUs respectively.
+
+    All this work is under the GPL2 license.
+
+    The Quick Guide in portuguese and in english (Thank Google Tradutor) was
+ written by Thiago Martins. The translation into spanish was written by Leandro
+ dos Santos.
+
+    Some tips:
+
+    If you have a 64-bit CPU but little memory, try using the i386 version of
+ the Xen Live CD with the Xen 64 bits. With this you'll have a 32-bits dom0 on
+ top of a 64-bits hypervisor. In this case, you no longer need the libc6-xen
+ package in any of your domains (dom0 and domU). Ending with the problem related
+ to TLS. The libc6-xen is only required in pure 32-bit systems.
+
+    You only need a 64 bits dom0 if you give to it, 4G of RAM or more (aka
+ dom0_mem=4096M). I believe it's not a good idea to have a 64 bits O.S. with
+ low memory for its operations.
+
+
+  * The process of creating the domUs included in the Xen Live CD is outside
+ the scope of this work. But it is perfectly possible to create the Xen Live
+ CD with no virtual machines pre-configured on it. But you can find the
+ necessary files in the "guests" within the Xen Live CD and copy them to the
+ directory "xenlivecd-XY/guests" of the source code and then run the step 2 via
+ makefile mode or 9, if you choose step-by-step mode.
+

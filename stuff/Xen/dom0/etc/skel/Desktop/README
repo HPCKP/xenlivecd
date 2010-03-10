@@ -1,0 +1,599 @@
+
+                                Xen Live CD
+
+    Index
+
+ 1 - Overview
+
+ 2 - Managing the system
+
+  2.1 - The command xm
+
+  2.2 - The libvirt library
+
+  2.3 - The program virt-manager
+
+  2.4 - The tool xen-tools
+
+  2.5 - The tool ConVirt
+
+ 3 - Extra examples
+
+  3.1 - Preparing the hard disk
+
+   3.1.1 - Virtual disks has files
+
+   3.1.2 - Virtual disks in LVM logical volumes
+
+   3.1.3 - Preparing the CD images
+
+  3.2 - Installing a virtual Windows
+
+  3.3 - Converting HVM to PVM and/or vice-versa
+
+   3.3.1 - Creating and converting an HVM
+
+  3.4 - Booting the Debian Installer within a PVM
+
+  3.5 - Turn your computer into a virtual machine
+
+  3.6 - Install a dom0 on your hard drive of the examples
+
+ 4 - Rebuilding the Xen Live CD
+
+ 5 - Final Notes
+
+
+    1 - Overview
+
+    This is a quick guide to help you understand and use the Live system.
+
+    The Xen Live CD it's a Debian Lenny 5.0.
+
+    We have five tools to manage the Xen domains (Virtual Machines). The first
+ tool is the command xm from Xen-3.2, the second is the libvirt, the third is a
+ set of tools of RedHat Inc. called virt-manager, virt-inst and virt-viewer, the
+ fourth is the famous xen-tools and the fifth and last of this system is
+ ConVirt, it is not available in the latest version in Debian, then it was
+ installed in / usr/local/convirt-0.9.6 for testing.
+
+    There are also examples almost ready to begin installations of Windows, old
+ versions of Linux or any operating system supported by the Xen HVM. Also added
+ was an example of how to start the "Debian Installer" inside of a machine
+ paravirtual (PV).
+
+    This Live CD contains four of Xen virtual machines, two servers and two work
+ stations, but only two are connected to start the Live, minimizing the amount
+ of memory needed to run this demonstration. Note that the server01 and server02
+ have the same virtual disk in read-only mode and within each domu, we use aufs
+ to get a file system in the way of writing in memory, exactly as the Live CD of
+ Xen.
+
+    You are free to start the second virtual machine and the second station at
+ any time you want, just make sure you have enough memory for them. If you have
+ low memory, shut down some machines before connecting other.
+
+    In the Xen Live CD, all systems are configured to send the name of the
+ machine to DHCP server, so if you have a dynamic DNS configured on your
+ network, both the dom0 as the domus in the network will be accessible by their
+ names.
+
+    Note that the dom0 is limited to 640M, it means that the root file system of
+ this live dos not have much room for tests, how to create virtual machines,
+ install the Debian packages, etc ... The domus occupy 320M, totalizing 960M for
+ this system work properly. The virtual machines located in the Xen Live CD,
+ have no swap memory, so do not wait use them without problems, remember, they
+ are only for demonstration of Xen.
+
+    To use the examples of intem 3, will require a local hard disk, that you
+ will use to create the disks of virtual machines involved. The best thing to do
+ is provide a single empty hard disk on your computer and follow this guide.
+
+    Users of all Xen Domains are "livexen" with password "live".
+
+    Always use the "sudo -s" before running the commands of this guide.
+
+    It is vital to have a network card recognized as eth0 for running the Xen
+ Live CD.
+
+    Let's go have fun!
+
+
+    2 - Managing the system
+
+    2.1 - The command `xm':
+
+    This command is the most basic to the management of Xen, with it can turn on
+ and off the virtual machines, can connect their consoles in short, it is
+ perfectly possible to use the Xen only with this tool. All others are optional,
+ I believe.
+
+    Starting the virtual machines:
+
+     xm create /etc/xen/server01.cfg
+     xm create /etc/xen/client01.cfg
+ 
+    Extras:
+
+     xm create /etc/xen/server02.cfg
+     xm create /etc/xen/client02.cfg
+
+    Use "-c" to connect to the console of the virtual machine immediately after
+ the load of the same. It is essential to see the PyGRUB.
+
+    Starting VM and connecting to the console immediately:
+
+     xm create /etc/xen/server02.cfg -c
+
+    The console:
+
+    The console in the domu is controlled by the file /etc/event.d/hvc0, to
+ connect to it, use:
+
+     xm console server01
+     xm console client01
+
+    To disconnect from the console and go back to dom0, press CONTROL + ].
+
+    Turning off the virtual machines:
+
+    You can usually turn off the machines with the command `shutdown' or `halt'
+ inside of it, but we'll turn them off from the dom0.
+
+     xm shutdown server01
+     xm shutdown server02
+
+    If the virtual machine is not shut down properly or it be frozen, can
+ destroy it, like taking off the power cable of a real machine.
+
+     xm destroy client01
+     xm destroy server01
+
+
+    2.2 - The libvirt library
+    
+    This library is a kind of "management layer", it is possible to work with
+ Xen using only this tool instead of the original (xm). With it you can manage
+ other types of Hypervisor as KVM, LXC, OpenVZ, VMWare, etc... facilitating and
+ centralizing the work of management from a single method, even in a
+ heterogeneous environment.
+
+    The libvirt was used to create the configuration files based on XML,
+ register the virtual machines in the Hypervisor and start them in charge of the
+ Xen Live CD, everything in the script /etc/init.d/start-domUs.sh located in
+ dom0. With this you can turn off a machine and still see it in the list of
+ virtual machines with the appropriate status.
+
+    Creating XML files automatically:
+
+    Before do anything, you must start the virtual machine with the command `xm'
+ and its conventional configuration file, then create the XML file of the
+ on-line virtual machine.
+
+    Starting the VM in the traditional method:
+
+     xm create /etc/xen/server02.cfg
+
+    Creating XML file:
+
+     virsh dumpxml server02 > /etc/xen/server02.xml
+
+    Registering a VM via the XML file:
+
+     virsh define /etc/xen/server02.xml
+
+    Starting the virtual machines previously defined:
+
+     virsh start server02
+     virsh start client02
+
+    Listing Virtual Machines
+
+     virsh list
+     virsh list --all
+
+    The console:
+
+     virsh console server01
+     virsh console server02
+
+    Turning off the virtual machines:
+
+     virsh shutdown server01
+     virsh destroy server02
+
+
+    2.3 - The program virt-manager
+
+    The virt-manager program, to be graphic and intuitive, we will not go into
+ detail on how to use it, it is in the Xen Live CD with the goal of
+ demonstration and visual. The program opens automatically on login of the
+ livexen user and can be run from the top panel.
+
+
+    2.4 - The tool xen-tools
+ 
+    This was created to assist in the creation of new virtual machines, but not
+ its subsequent management.
+
+    Creating a new virtual machine:
+
+     xen-create-image --hostname guest01
+
+    Note: This command requires a local hard drive mounted on /mnt. Follow the
+ item 3.1.1 of this guide before running xen-create-image.
+
+    After creating your new virtual machine, files will be in the
+ /mnt/xendomains/domains directory. Which you can analyze and manage with the
+ commands listed in this quick guide. For example:
+
+     xm create -c /mnt/xendomains/domains/guest01.cfg
+
+    This command will start the new virtual machine and, to not lose sight of it
+ in the virt-manager, you can register it with:
+
+     virsh dumpxml guest01 > /home/livexen/Desktop/domains/guest01.xml
+     virsh define /home/livexen/Desktop/domains/guest01.xml
+
+    Note: If you can not register the domu, add the following line between the
+ tags "<interface type='bridge'> ... </interface>" of the file guest01.xml:
+
+    <source bridge='eth0'/>
+
+    And run "virsh define" again...
+
+
+    2.5 - The tool ConVirt
+
+    This seems to be a very promising tool simply because it has more functions
+ of management such as snapshots, drag'n'drop live motion, manages templates of
+ pre-installed systems, all options of the configuration of each virtual machine
+ and more. However, this program is in the Xen Live CD only for testing.
+
+    To run the ConVirt do:
+
+     cd /usr/local/convirt-0.9.6
+     sudo ./ConVirt
+
+
+    3 - Extra examples
+
+    As this is a Live demonstration with the root directory into memory, all the
+ examples below will only work right if you have a hard disk to create virtual
+ disks of the examples in it.
+
+    3.1 - Preparing the hard disk
+
+    Now let's learn three ways to create virtual disks for your machines. The
+ examples of the Xen Live CD following the first and simplest example, the next
+ one.
+
+    3.1.1 - Virtual Disks as files
+
+    This method does not need to format your hard disk, just mount it in mnt and
+ create some directories.
+
+     mount /dev/sdaX /mnt
+     mkdir -p /mnt/xendomains/domains
+
+    The domUs and the tool xen-tools uses the directory /mnt/xendomains to host
+ its virtual disks.
+
+    3.1.2 - Virtual Disks in LVM Logical Volumes
+
+    This next method is more professional and has a superior performance. It
+ will be necessary to delete your entire hard disk to use this method, unless
+ of course you already have a disc with LVM2 partitions available.
+
+    Partitioning your hard disk:
+
+    We'll use the Parted to make two partitions on your disk, a 256MB primary
+ type 83 Linux on the beginning of the disk and also another primary with the
+ rest of it, but the last will be the type 8E LVM.
+
+    You can choose to use cfdisk or any other disk utility to perform this next
+ step.
+
+    WARNING: THIS WILL ERASE ALL DATA FROM THE HARD DISK!
+
+    To partition your disk:
+
+     parted /dev/sda rm 4
+     parted /dev/sda rm 3
+     parted /dev/sda rm 2
+     parted /dev/sda rm 1
+     parted /dev/sda mkpart primary ext2 0.0 256.0
+     parted /dev/sda set 1 boot on
+     parted /dev/sda mkpart primary ext2 256.0 " -1s"
+     parted /dev/sda set 2 lvm on
+
+    Checking partitions:
+
+     parted /dev/sda print
+
+    Number   Start   End     Size    Type     File system    Flags
+     1       512B    256MB   256MB   primary                 boot
+     2       256MB   4295MB  4039MB  primary                 lvm
+
+    Enabling the LVM2:
+
+     pvcreate /dev/sda2
+     vgcreate HyperVG01 /dev/sda2
+
+    There are two ways to use the LVM to host the virtual hard disks, using the
+ logical volumes as a virtual hard disk or directly as partitions.
+
+    A) Create some "Virtual Hard Disks":
+
+     lvcreate -L 10G -n lenny01-disk1 HyperVG01
+     lvcreate -L 10G -n ubuntu01-disk1 HyperVG01
+     lvcreate -L 20G -n windows01-disk1 HyperVG01
+
+    Make some partitions on them (optional):
+
+     cfdisk /dev/mapper/HyperVG01-lenny01--disk1
+     cfdisk /dev/mapper/HyperVG01-ubuntu01--disk1
+     cfdisk /dev/mapper/HyperVG01-windows01--disk1
+
+    Map the partitions in dom0 (optional / maintenance):
+
+     kpartx -a /dev/mapper/HyperVG01-lenny01--disk1
+     kpartx -a /dev/mapper/HyperVG01-ubuntu01--disk1
+     kpartx -a /dev/mapper/HyperVG01-windows01--disk1
+
+    Using the partitions (optional / maintenance):
+
+     mkdir /tmp/lenny01-root /tmp/ubuntu01-root /tmp/C
+
+     mkfs.ext3 -L LENNY01 /dev/mapper/HyperVG01-lenny01--disk1p1
+     mount /dev/mapper/HyperVG01-lenny01--disk1p1 /tmp/ubuntu01-root
+
+     mkfs.ext3 -L UBUNTU01 /dev/mapper/HyperVG01-ubuntu01--disk1p1
+     mount /dev/mapper/HyperVG01-ubuntu01--disk1p1 /tmp/ubuntu01-root
+
+     mkfs.ntfs -f -Q -L WINDOWS01 /dev/mapper/HyperVG01-windows01--disk1p1
+     ntfs-3g /dev/mapper/HyperVG01-windows01--disk1p1 /tmp/C
+
+    Tip: Avoid GTP partitions within LVM logical volumes, this will impede the
+ work in time to a maintenance from the dom0.
+
+    B) Make some "virtual partitions":
+
+     lvcreate -L 2G -n guest01-root HyperVG01
+     lvcreate -L 128M -n guest01-swap HyperVG01
+
+     mkfs.ext3 -L ROOT /dev/mapper/HyperVG01-guest01--root
+     mkswap /dev/mapper/HyperVG01-guest01--swap
+
+
+    3.1.3 - Preparing the CD images
+
+    The next examples will require that you have two images of the original CDs
+ of Windows 2008 and Ubuntu 8.10. Ideally, you have to prepare these images on
+ your computer before starting the Xen Live CD. So you will proceed smoothly.
+ This section follows the preparation of the disc as described in item 3.1.1.
+
+    Before starting the Xen Live CD, on your computer do:
+
+     mkdir /images ; cd /images
+     wget -c http://ubuntu.c3sl.ufpr.br/releases/intrepid/ubuntu-8.10-server-i386.iso
+
+    Place the CD of the Windows 2008 32 bits in your CD-ROM drive to create the
+ image with:
+
+     cd /images
+     dd if=/dev/cdrom of=windows-server-2008-standard-32bits.iso
+
+
+    3.2 - Installing a virtual Windows
+
+    In the ~livexen/Desktop/Examples/windows01 folder, there are a file called
+ windows01.hvm, it is prepared to begin the installation process of the Windows.
+ Since you have followed the item 3.1.3.
+
+    The simplest way to start this process will have to put an image of the
+ original CD of Windows on your computer that is running Xen Live CD. So just
+ start the Live, mount your local disk and use the CD image of Windows with
+ configuration file found in the directory of examples.
+
+    Assuming that the image is on your computer in
+ /images/windows-server-2008-standard-32bits.iso and you mount your hard disc
+ partition under the /mnt on the live, simply start the installation. Since the
+ windows01.hvm sample file search by
+ /mnt/images/windows-server-2008-standard-32bits.iso.
+
+    Once the paths correctly set, start the Windows installation with:
+
+     cd ~/Desktop/Examples/windows01 ; ./make-disc.sh
+     xm create /home/livexen/Desktop/Examples/windows01/windows01.hvm
+
+    Note: The file windows01.hvm is configured to use the SDL library, so,
+ before running the command `xm', become root with the command "sudo -s".
+
+
+    3.3 - Converting HVM to PVM and/or vice-versa
+
+    In the directory of the examples, there are two files, the HVM-ubuntu01.hvm
+ and PVM-ubuntu01.cfg. These two files control the same domu, one to start it in
+ HVM mode and another to start it in PVM mode.
+
+    Basically, the only restriction on this type of conversion, is that
+ mandatory that the /boot directory resides on the first partition (or disk) of
+ the first virtual disk of the domU, because it uses PyGRUB to start the domu as
+ PVM.
+
+    Another pre-requisite will be choosing a modern Linux operating system, with
+ the support paravirt_ops enabled. With this, is relatively simple install a
+ system in HVM mode and then, restart it in PVM mode with total peace, security
+ and without much change in the system already installed. In this case we chose
+ the Ubuntu Server 8.10 for the conversion.
+
+    You must also have a CD image of Ubuntu 8.10 in your local disk, preferably
+ in /images/ubuntu-8.10-server-i386.iso, following the Windows example.
+
+    3.3.1 - Creating and converting an HVM
+
+    Assuming that the image is on your computer in
+ /images/ubuntu-8.10-server-i386.iso and you mount your hard disc partition
+ under the /mnt on the live, simply start the installation. Since the
+ HVM-ubuntu01.hvm sample file look for /mnt/images/ubuntu-8.10-server-i386.iso.
+
+    This was the method used in creating the domus of the Xen Live CD. In fact
+ they are PVM machines manually converted from PVM.
+
+    Once the paths correctly set, start the Windows installation with:
+
+     cd ~/Desktop/Examples/ubuntu01 ; ./make-disc.sh
+     xm create /home/livexen/Desktop/Examples/ubuntu01/HVM-ubuntu01.hvm
+
+    Note: The file HVM-ubuntu01.hvm is configured to use the SDL library, so,
+ before running the command `xm', become root with the command "sudo -s".
+
+    To enable the console for PVM machine, after installing Ubuntu, make the
+ file /etc/event.d/hvc0 correctly. Without it, you can only use the PVM console
+ of the machine via VNC or SDL. This is the only change needed in your system
+ to convert it from HVM to PVM.
+
+    Once the HVM virtual machine running with kernel version "-server" in
+ Ubuntu 8.10, we will restart it in PVM mode.
+
+    Shutting down HVM domain:
+
+     xm shutdown ubuntu01
+
+    Turn on the PVM domain:
+
+    xm create -c /home/livexen/Desktop/Examples/ubuntu01/PVM-ubuntu01.cfg
+
+
+    3.4 - Booting the Debian Installer within a PVM
+
+    This is experimental, should be used only as a curiosity. Was included in
+ the Xen Live CD so that more people see that it is being built to us. One day,
+ the same CD of Debian maybe can be started in a phisical machine or a
+ paravirtual machine without any changes. I hope so! Will be great!
+
+    Starting the default installation of Debian on a PV:
+
+     cd ~/Desktop/Examples/lenny01 ; ./make-disc.sh
+
+    Installation in text mode:
+
+     ./start-curses-DI.sh
+
+    Installation in graphical mode:
+
+     ./start-graphical-DI.sh
+
+    Once the domu is installed, start it with the command:
+
+     xm create -c /etc/xen/xm-debian-curses.cfg
+
+    Or use the graphical environment X.org of Debian:
+
+     xm create /etc/xen/xm-debian-vfb.cfg
+
+    Note: To use the graphical environment on your new virtual Debian, add the
+ following line to your /etc/X11/xorg.conf in the "Device":
+
+    Driver          "fbdev"
+
+
+    3.5 - Turn your computer into a virtual machine
+
+    If you have a CPU that supports Xen HVM domains, you can try to start your
+ physical machine within a virtual machine. To do this, simply configure your
+ local hard disk on a HVM machine. It would be like changing the computer,
+ while keeping your hard disk.
+
+    You should pay attention only to your /etc/fstab, since the Xen HVM machine
+ emulates an IDE controller, so your disk will be configured as hda in the HVM
+ domU. But if you use a modern system such as Ubuntu, don't worry, it uses the
+ UUID option on his fstab. Then just start the HVM domu and you will see your
+ system within a virtual machine.
+
+    To start the process, use the following file pre-configured:
+
+     xm create /home/livexen/Examples/my-computer/my-computer.hvm
+
+    If you have Ubuntu 8.10 installed on the first disk of the computer that is
+ running Xen Live CD, this will work perfectly, as Ubuntu uses the UUID in his
+ /etc/fstab and so whatever the your disk, IDE or SATA, it always will find
+ your partitions.
+
+
+    3.6 - Install a dom0 on your hard drive of the examples
+
+    If you choose using a local hard disk as the item 3.1.2 says, you must have
+ noticed that we have created a 256MB partition at the beginning of the disc and
+ it is precisely here that we'll use it, it will be the /boot of your new dom0.
+
+    Preparing the disk for the installation of the dom0:
+
+     mkfs.ext2 -L BOOT /dev/sda1
+     lvcreate -L 5G -n hypervisor01-root HyperVG01
+     lvcreate -L 512M -n hypervisor01-swap HyperVG01
+
+    Installing the dom0:
+
+    Use the original CD of Debian Lenny 5.0 and during the partitioning,
+ manually choose the three partitions previously created to install the system
+ default (without Xen for now).
+
+    Manual partition scheme for dom0:
+
+     A- /dev/sda1 de 256MB on /boot;
+     B- LVM HyperVG01 hypervisor01-root of 5GB on / and;
+     C- LVM HyperVG01 hypervisor01-swal of 512MB.
+
+    After installing Debian usually on these partitions, install Xen with the
+ command:
+
+     aptitude install xen-linux-system-2.6.26-1-xen-686
+
+    ou:
+
+     aptitude install xen-linux-system-2.6.26-1-xen-amd64
+
+    Done, now you have a Xen Hypervisor installed on your local disk, dispensing
+ the Xen Live CD to run your new virtual machines.
+
+
+    4 - Rebuilding the Xen Live CD
+
+    Was used the Debian live-helper in the development of the Xen Live CD, the
+ entire procedure is available in a free package. It is called
+ xenlivecd-VERSION.tar.gz.
+
+    To generate the Xen Live CD, copy the xenlivecd-VERSION.tar to some
+ directory, untar the package, enter the source directory and run the command
+ "make i386" or "make amd64", depending on the desired architecture.
+
+    NOTE: This procedure creates a Live CD do Xen without any virtual machine,
+        but is fully functional. You must provide the images examples for the
+        complete demo. If you have the images in the right place, you can run
+        the command "make plusguests-i386 or -amd64" to copy the images of the
+        domUs to the final ISO.
+
+
+    5 - Final notes
+
+    Is recommended a minimum of 4Giga of RAM memory to test all examples
+ simultaneously. 
+
+    I believe that the Debian team will provide a standardized way to install
+ Xen 64 bits on a i386 installation. Once this is fully functional, as all can
+ see and test on this demo, as well as Citrix's own XenServer product. Which
+ has a 64-bits Xen and a 32-bits dom0. Remember that, in this case, the package
+ libc6-xen becomes unnecessary and the problems related to TLS disappear.
+
+    I hope everyone has enjoyed this work! I imagine that with Xen, we can
+ decrease a little global warming, making a more intelligent use of the
+ equipment of our world. Welcome to green computing!
+
+    That's all folks!
+
+    São Paulo, February 17, 2009.
+
+-
+ Thiago Camargo M. Cordeiro <thiago.martins@worldweb.com.br>

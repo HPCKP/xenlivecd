@@ -1,0 +1,23 @@
+0.8.2 Added redhat-cluster-suite, aoetools, vblade-persist, vblade, vlan,
+vtun, vde2 and vdetelweb to package list.
+
+0.8.1 Updated live-helper to 1.0.3-1 and rebuild the Xen Live CD.
+
+0.8 Sync amd64 scrtips from the last i386. Finishing the Quick Guide.
+
+0.7 Top level Makefile added.
+
+0.6 Docs and nice examples added.
+
+0.5 Clean everything, remove every duplicated files to save all bits we can.
+
+0.4 Guests manually created and added to "guests" subdir (not part of
+xenlivecd build process).
+
+0.3 Added more gnome stuff and customize home dir of livexen user.
+
+0.2 Added some extra packages like libvirt, basic X and gnome, virt-manager
+and xen-tools.
+
+0.1 First inicial relase, no X, no domUs, just a standard Debian Live with
+Xen installed and running.

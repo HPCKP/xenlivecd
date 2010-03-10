@@ -1,0 +1,29 @@
+default 0
+color cyan/blue white/blue
+splashimage /boot/grub/splash.xpm.gz
+timeout 30
+
+# Default for most users
+title       Xen 3.2-1 32 bits / Debian GNU/Linux - live, kernel 2.6.26-1-xen-686
+kernel      /live/xen-3.2-1-i386.gz dom0_mem=640M
+module      /live/vmlinuz-2.6.26-1-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256
+module      /live/initrd.img-2.6.26-1-xen-686
+quiet
+
+# If you have a 64 bits CPU, you can try this one!
+title       Xen 3.2-1 64 bits / Debian GNU/Linux - live, kernel 2.6.26-1-xen-686
+kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M
+module      /live/vmlinuz-2.6.26-1-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0
+module      /live/initrd.img-2.6.26-1-xen-686
+quiet
+
+title       Debian GNU/Linux - live, kernel 2.6.26-1-686
+kernel      /live/vmlinuz-2.6.26-1-686 boot=live quiet splash username=livexen hostname=xenalive union=aufs
+initrd      /live/initrd.img-2.6.26-1-686
+
+title       Debian GNU/Linux - live, kernel 2.6.26-1-686 (fail-safe mode)
+kernel      /live/vmlinuz-2.6.26-1-686 boot=live quiet splash username=livexen hostname=xenalive union=aufs noapic noapm nodma nomce nolapic nosmp vga=normal
+initrd      /live/initrd.img-2.6.26-1-686
+
+title       memtest86+
+kernel      /live/memtest

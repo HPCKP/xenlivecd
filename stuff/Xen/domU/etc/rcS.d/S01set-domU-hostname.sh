@@ -1,0 +1,1 @@
+../init.d/set-domU-hostname.sh

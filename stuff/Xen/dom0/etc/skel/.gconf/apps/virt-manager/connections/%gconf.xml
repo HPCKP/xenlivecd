@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="autoconnect" mtime="1234827908" type="list" ltype="string">
+                <li type="string">
+                        <stringvalue>xen:///</stringvalue>
+                </li>
+        </entry>
+        <entry name="uris" mtime="1234827908" type="list" ltype="string">
+                <li type="string">
+                        <stringvalue>xen:///</stringvalue>
+                </li>
+        </entry>
+</gconf>

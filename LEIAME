@@ -1,0 +1,101 @@
+
+                        Como construir o Xen Live CD
+
+    Estes scripts foram feitos para nos ajudar a configurar e executar o live-
+ -helper a fim de se criar um novo Live CD do Xen.
+
+    A primeira coisa é que você deve ser root para executar estes passos
+ corretamente, uma vez que live-helper faz alguns chroots, mounts, etc...
+
+    O segundo é que o live-helper utilizado é o 1.0.3-1 do Ubuntu Jaunty
+ manualmente empacotado no Intrepid.
+
+
+    Prcedimento de construção via Makefile:
+
+ 1- Rode "make i386|amd64" para construir o seu Live CD do Xen sob o diretório
+   i386 ou amd64;
+ 
+ 2- Opicionalmente rode "make plusguests-i386 | -amd64" para copiar as domUs
+   para dentro do raiz do CD; *
+
+
+    Para construir o Live CD do Xen passo a passo:
+
+ 1- Descompacte o xenlivecd-VERSION.tar.gz em /usr/src;
+ 
+ 2- cd /usr/src/xenlivecd-VERSION/[i386|amd64];
+ 
+ 3- Rode ./10-init-lh_config.sh para preparar a base para o live-helper;
+ 
+ 4- Rode ./15-copy-some-stuff.sh para copiar algumas coisas a serem incluídas
+   na dom0;
+ 
+ 5- Rode ./16-get-convirt.sh para transferir, modificar e copiar o programa
+   ConVirt para a dom0;
+ 
+ 6- Rode ./20-run-lh_build.sh como primeiro passo na criação iso;
+ 
+  6.1- Dentro do "prompt interativo" (interactive shell), faça:
+ 
+     update-alternatives --config editor # Selecione a opção 4 - vim por favor!
+     cd /usr/lib && ln -s /etc/alternatives/xen-default xen
+     updatedb
+ 
+ 7- Rode ./30-prepare-binary-for-xen.sh para copiar o Xen para o diretório raiz
+   do CD;
+ 
+ 8- Rode ./31-remove-kernel-of-chroot.sh para remover os arquivos initrd e
+   vmlinuz do sistema de arquivos squashfs da dom0. Isso irá liberar ~20MB na
+   imagem ISO final, uma vez que estes arquivos são copiados pelo live-helper
+   para o raiz do CD.
+ 
+ 9- Opicional: Rode ./33-copy-guests.sh para copiar as domUs previamente
+   confeccionadas para o raiz do CD; *
+ 
+ 10- Rode ./35-remake-iso.sh para refazer a imagem final do Live CD do Xen.
+
+
+    Para limpar tudo e iniciar novamente, rode "make dist-clean" no diretório
+ raiz dos fontes. Note que não serão excluídos os caches dos arquivos .deb.
+
+
+    Sobre os diretórios do fonte
+
+    Os sub-diretórios i386 e amd64 contém todos os arquivos utilizados no
+ processo de construção do Live CD do Xen, um diretório para cada arquitetura.
+
+    O sub-diretório stuff contém todos os itens necessários para a dom0 e as
+ domUs funcionarem corretamente.
+
+    O diretório sutff/Xen possuí dois sub-diretórios, o dom0 e o domU. Estes
+ contém arquivos que precisam ser copiados para o raiz da dom0 e das domUs
+ respectivamente.
+
+    Todo este trabalho está sob a licença GPL2.
+
+    O Guia Rápido em português e em inglês (agradeço ao Google Tradutor) foi
+ escrito por Thiago Martins. A tradução para o espanhol foi escrita por Leandro
+ dos Santos.
+
+
+    Algumas dicas:
+
+    Se você tem uma CPU 64 bits mas pouca memória, tente utilizar a versão i386
+ do Live CD do Xen com o Xen 64 bits. Com isso você terá um hypervisor 64 bits
+ e uma dom0 32 bits. Neste caso, você não mais precisará do pacote libc6-xen em
+ nenhum de seus domínios (dom0 e domU). Acabando com o problema relacionado à
+ TLS. A libc6-xen só é necessária em sistemas puramente 32 bits.
+
+    Você só precisa de uma dom0 64 bits se você dá a ela, 4G de memória RAM ou
+ mais (aka dom0_mem = 4096M). Acredito não ser uma boa idéia ter um SO 64 bits
+ com pouca memória para suas operações.
+
+
+  * O processo de criação das domUs inclusas no Live CD do Xen está fora do
+ escopo deste trabalho. Mas é perfeitamente possível de se criar o Live CD do
+ Xen sem nenhuma máquina virtual pré-configurada. Porém você pode encontrar os
+ arquivos necessários no diretório "guests" dentro do Live CD do Xen e copiá-
+ -los para o diretório "xenlivecd-X.Y/guests" do código fonte e então rodar o
+ passo 2 via Makefile ou 9, caso escolha o modo passo-a-passo.
+

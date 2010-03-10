@@ -1,0 +1,6 @@
+/dev -
+/dev/shm -
+/lib/init/rw -
+/live -
+/live/cow -
+/tmp -
