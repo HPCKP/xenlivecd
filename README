@@ -10,14 +10,17 @@
     Second is that the live-helper used is 1.0.5-1 from Ubuntu Karmic manually
  backported to Debian Lenny.
 
+    NOTE: If you wish to build the 64 bits version of the Xen Live CD, you must
+ be on a 64 bits machine.
+
 
     Makefile build process:
 
  1- Run "make i386|amd64" to create your Xen Live CD image under i386 or amd64
    subdir;
 
- 2- Opcional run: "make plusguests-i386 | -amd64" to copy some guests into the
-   live; *
+ 2- Opcional: Run "make plusguests-i386 | -amd64" to copy some guests into the
+   live;
 
 
     To build the Xen Live CD step-by-step:
@@ -30,13 +33,11 @@
 
  4- Run ./15-copy-some-stuff.sh to copy some stuff to be included in your dom0;
 
- 5- Run ./16-get-convirt.sh to get ConVirt in your dom0;
+ 5- Run ./17-get-convirture-tools.sh to get Convirture tools;
 
- 6- Run ./17-get-convirture-tools.sh to get Convirture tools;
-
- 7- Run ./20-run-lh_build.sh as first step in the iso creation;
+ 6- Run ./20-run-lh_build.sh as first step in the iso creation;
  
-  7.1- Inside the "interactive shell", do:
+  6.1- Inside the "interactive shell", do:
 
     /tmp/01-install-convirt.sh # To install the Convirture GUI
     /tmp/02-install-xn-suite.sh i386 # To install the xn-Suite
@@ -46,19 +47,20 @@
     updatedb
     logout
 
- 8- Run ./30-prepare-binary-for-xen.sh to copy Xen to the root CD directory;
+ 7- Run ./30-prepare-binary-for-xen.sh to copy Xen to the CD root directory;
 
- 9- Run ./31-remove-kernel-of-chroot.sh to remove initrd and vmlinuz from the
+ 8- Run ./31-remove-kernel-of-chroot.sh to remove initrd and vmlinuz from the
    dom0 compressed squash file system. This will save ~20MB in the final iso,
-   since these files are copied by the live-helper to the root of the CD.
+   since these files are copied by the live-helper to the final disc image.
 
- 10- Run ./32-get-windows-gplpv-drivers.sh to prepare the ISO for drivers;
+ 9- Run ./32-get-windows-gplpv-drivers.sh to copy the drivers to the final ISO;
 
- 11- Optional: Run ./33-copy-guests.sh to copy previous installed domUs; *
+ 10- Optional: Run ./33-copy-guests.sh to copy previous installed domUs; *
 
- 12- Optional: Run ./34-copy-source-to-iso.sh to copy the ISO generator to the final ISO;
+ 11- Optional: Run ./34-copy-source-to-iso.sh to copy the ISO generator to the
+    final ISO;
 
- 13- Run ./35-remake-iso.sh to remake the final Xen Live CD iso image.
+ 12- Run ./35-remake-iso.sh to remake the final Xen Live CD iso image.
 
 
     To clean all and start over again, run "make dist-clean" from top level
@@ -69,15 +71,15 @@
     About source sub directories
 
     The sub directories i386 and amd64 contains all files used in the build
- process of the Xen Live CD, one directory for each arch.
+ process of the Xen Live CD, one directory for each arch. The sub directory
+ arch-common contins some files shared between the two archs.
 
     The directory "stuff" contains all the stuff needed for the dom0 and the
- domUs work properly.
+ domUs work properly and some scripts and the Xen logo.
 
-    The directory sutff/Xen has two sub directories, the dom0 and domU. These
- files must be copied to the root of dom0 and domUs respectively.
-
-    All this work is under the GPL2 license.
+    The directory sutff/Xen has two sub directories, the dom0 and the domU.
+ The files there must be copied to the root of the dom0 and of the domUs
+ respectively.
 
     The Quick Guide in portuguese and in english (Thanks Google Tradutor) was
  written by Thiago Martins. The translation into spanish was written by Leandro
@@ -92,11 +94,11 @@
  to TLS. The libc6-xen is only required in pure 32-bit systems.
 
     You only need a 64 bits dom0 if you give to it, 4G of RAM or more (aka
- dom0_mem=4096M). I believe it's not a good idea to have a 64 bits O.S. with
- low memory for its operations.
+ dom0_mem=4096M). It's not a good idea to have a 64 bits O.S. with low memory
+ for its operations.
 
 
-  * The process of creating the domUs included in the Xen Live CD is outside
+  * The process of creating the domUs included in the Xen Live CD is outside of
  the scope of this work. But it is perfectly possible to create the Xen Live
  CD with no virtual machines pre-configured on it. But you can find the
  necessary files in the "guests" within the Xen Live CD and copy them to the

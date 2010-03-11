@@ -1,14 +1,17 @@
 
-                        Como construir o Xen Live CD
+                        Como construir um Live CD do Xen
 
     Estes scripts foram feitos para nos ajudar a configurar e executar o live-
  -helper a fim de se criar um novo Live CD do Xen.
 
     A primeira coisa é que você deve ser root para executar estes passos
- corretamente, uma vez que live-helper faz alguns chroots, mounts, etc...
+ corretamente, uma vez que o live-helper faz alguns chroots, mounts, etc...
 
     O segundo é que o live-helper utilizado é o 1.0.5-1 do Ubuntu Karmic
- manualmente empacotado no Debian Lenny.
+ manualmente re-empacotado no Debian Lenny.
+
+    NOTA: Se você deseja construir a versão 64 bits do Live CD do Xen, você
+ precisa estar em uma máquina 64 bits.
 
 
     Prcedimento de construção via Makefile:
@@ -30,17 +33,20 @@
  
  4- Rode ./15-copy-some-stuff.sh para copiar algumas coisas a serem incluídas
    na dom0;
- 
- 5- Rode ./16-get-convirt.sh para transferir, modificar e copiar o programa
-   ConVirt para a dom0;
- 
+
+ 5- Rode ./17-get-convirture-tools.sh para transferir o Convirture tools;
+
  6- Rode ./20-run-lh_build.sh como primeiro passo na criação iso;
  
   6.1- Dentro do "prompt interativo" (interactive shell), faça:
- 
-     update-alternatives --config editor # Selecione a opção 4 - vim por favor!
-     cd /usr/lib && ln -s /etc/alternatives/xen-default xen
-     updatedb
+
+    /tmp/01-install-convirt.sh # Para instalar o Convirture GUI
+    /tmp/02-install-xn-suite.sh i386 # Para instalar o xn-Suite
+    /tmp/05-prepare-chroot.sh  # Mude a senha do root para "live" e selecione a
+                               # opção 4, vim por favor!
+    rm -f /tmp/*.sh
+    updatedb
+    logout
  
  7- Rode ./30-prepare-binary-for-xen.sh para copiar o Xen para o diretório raiz
    do CD;
@@ -50,12 +56,13 @@
    imagem ISO final, uma vez que estes arquivos são copiados pelo live-helper
    para o raiz do CD.
 
- 9- Rode ./32-get-windows-gplpv-drivers.sh p
+ 9- Rode ./32-get-windows-gplpv-drivers.sh para copiar os controladores de
+   dispositivo para o ISO final.
  
  10- Opicional: Rode ./33-copy-guests.sh para copiar as domUs previamente
-   confeccionadas para o raiz do CD; *
+   confeccionadas para o raiz do CD;
 
- 11- Rode./34-copy-source-to-iso.sh p
+ 11- Rode ./34-copy-source-to-iso.sh
 
  12- Rode ./35-remake-iso.sh para refazer a imagem final do Live CD do Xen.
 
@@ -68,15 +75,15 @@
 
     Os sub-diretórios i386 e amd64 contém todos os arquivos utilizados no
  processo de construção do Live CD do Xen, um diretório para cada arquitetura.
+ O sub diretório arch-common contém alguns arquivos compartilhados entre as
+ duas arquiteturas.
 
-    O sub-diretório stuff contém todos os itens necessários para a dom0 e as
- domUs funcionarem corretamente.
+    O sub-diretório stuff contém todos os itens necessários para que a dom0 e
+ as domUs funcionem corretamente além de alguns scripts e o logotipo do Xen.
 
     O diretório sutff/Xen possuí dois sub-diretórios, o dom0 e o domU. Estes
  contém arquivos que precisam ser copiados para o raiz da dom0 e das domUs
  respectivamente.
-
-    Todo este trabalho está sob a licença GPL2.
 
     O Guia Rápido em português e em inglês (agradeço ao Google Tradutor) foi
  escrito por Thiago Martins. A tradução para o espanhol foi escrita por Leandro
