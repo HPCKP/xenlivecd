@@ -27,7 +27,7 @@ lh_config \
     --mirror-chroot http://ftp.br.debian.org/debian \
     --mirror-chroot-security http://security.debian.org/ \
     --mirror-binary http://ftp.br.debian.org/debian \
-    --categories "main non-free" \
+    --categories "main contrib non-free" \
     --checksums enabled \
     --initramfs live-initramfs \
     --distribution lenny \
@@ -37,6 +37,7 @@ lh_config \
     --iso-publisher "Xen Live project; http://wiki.xensource.com/xenwiki/LiveCD; xen-users@lists.xensource.com" \
     --grub-splash "../stuff/splash.xpm.gz" \
     --interactive shell \
+    --memtest none \
     --source disabled
 
 # make the tmp directories

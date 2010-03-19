@@ -54,6 +54,3 @@ initrd      /live/initrd.img-2.6.26-2-686
 title       Boot from 1st Hard Disk
 rootnoverify (hd0)
 chainloader +1
-
-title       memtest86+
-kernel      /live/memtest
