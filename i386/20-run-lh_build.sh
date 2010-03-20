@@ -1,3 +1,1 @@
-#! /bin/sh
-
-lh_build
+../arch-common/20-run-lh_build.sh

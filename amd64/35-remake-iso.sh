@@ -1,5 +1,1 @@
-#! /bin/sh
-
-rm binary/md5sum.txt
-lh_binary_md5sum --force
-lh_binary_iso --force
+../arch-common/35-remake-iso.sh

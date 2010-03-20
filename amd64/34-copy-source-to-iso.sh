@@ -1,4 +1,1 @@
-#! /bin/sh
-
-VERSION=`cat ../VERSION`
-cp ~/packit/xenlivecd-$VERSION.tar.gz binary/
+../arch-common/34-copy-source-to-iso.sh
