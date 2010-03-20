@@ -17,7 +17,7 @@ plussource-i386:
 	cd i386 && ./34-copy-source-to-iso.sh
 
 plusguests-i386:
-	cd i386 && ./33-copy-guests.sh
+	cd i386 && ./33-ln-guests.sh
 	cd i386 && ./35-remake-iso.sh
 
 cp-2-site-i386:
@@ -45,7 +45,7 @@ plussource-amd64:
 	cd amd64 && ./34-copy-source-to-iso.sh
 
 plusguests-amd64:
-	cd amd64 && ./33-copy-guests.sh
+	cd amd64 && ./33-ln-guests.sh
 	cd amd64 && ./35-remake-iso.sh
 
 cp-2-site-amd64:
