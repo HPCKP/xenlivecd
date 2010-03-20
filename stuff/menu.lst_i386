@@ -18,14 +18,14 @@ quiet
 
 title       -
 
-# If you have a 64 bits CPU, you can try this one!
+# If you have a 64 bits CPU, you can try this one:
 title       Xen 3.2-1 64 bits / Debian dom0, kernel 2.6.26-2-xen-686
 kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M
 module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256
 module      /live/initrd.img-2.6.26-2-xen-686
 quiet
 
-# Safe mode - Works within the KVM!
+# Safe mode - Works as a KVM guest!
 title       Xen 3.2-1 64 bits Safe Mode / Debian dom0, kernel 2.6.26-2-xen-686 (works as a KVM guest)
 kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M noreboot noapic
 module      /live/vmlinuz-2.6.26-2-xen-686 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256 acpi=off

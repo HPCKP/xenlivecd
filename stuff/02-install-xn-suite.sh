@@ -1,6 +1,12 @@
 #! /bin/sh
 
-case "$1" in
+ARCH=i386
+
+if [ -e /lib64 ]; then
+    ARCH=amd64
+fi
+
+case "$ARCH" in
     i386)
         cd /tmp
         wget -c http://www.xncore.com/download/xn-suite_0.82-lenny1_i386.deb
@@ -20,8 +26,5 @@ case "$1" in
         chown www-data: -R /usr/share/xn-core/xn-web
         sqlite3 /var/lib/xn-core/xn-web/xn-web.sqlite "UPDATE user SET password = 'live' WHERE username = 'admin'"
         /etc/init.d/xn-daemon stop
-    ;;
-    *)
-    echo "Run "$0" [i386|amd64]"
     ;;
 esac

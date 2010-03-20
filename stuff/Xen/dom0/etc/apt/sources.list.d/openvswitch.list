@@ -1,3 +1,3 @@
 # Openvswitch provided for the Xen Live CD project or any Debian Lenny system.
-deb http://livexen01.worldweb.com.br/debian lenny ovs
-#deb-src http://livexen01.worldweb.com.br/debian lenny ovs
+# deb http://livexen01.worldweb.com.br/debian lenny ovs
+# deb-src http://livexen01.worldweb.com.br/debian lenny ovs

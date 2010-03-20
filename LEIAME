@@ -38,16 +38,6 @@
 
  6- Rode ./20-run-lh_build.sh como primeiro passo na criação iso;
  
-  6.1- Dentro do "prompt interativo" (interactive shell), faça:
-
-    /tmp/01-install-convirt.sh # Para instalar o Convirture GUI
-    /tmp/02-install-xn-suite.sh i386 # Para instalar o xn-Suite
-    /tmp/05-prepare-chroot.sh  # Mude a senha do root para "live" e selecione a
-                               # opção 4, vim por favor!
-    rm -f /tmp/*.sh
-    updatedb
-    logout
- 
  7- Rode ./30-prepare-binary-for-xen.sh para copiar o Xen para o diretório raiz
    do CD;
  

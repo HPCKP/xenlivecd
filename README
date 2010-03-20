@@ -37,16 +37,6 @@
 
  6- Run ./20-run-lh_build.sh as first step in the iso creation;
  
-  6.1- Inside the "interactive shell", do:
-
-    /tmp/01-install-convirt.sh # To install the Convirture GUI
-    /tmp/02-install-xn-suite.sh i386 # To install the xn-Suite
-    /tmp/05-prepare-chroot.sh  # Change the root password to "live" and select
-                               # option 5, vim please!
-    rm -f /tmp/*.sh
-    updatedb
-    logout
-
  7- Run ./30-prepare-binary-for-xen.sh to copy Xen to the CD root directory;
 
  8- Run ./31-remove-kernel-of-chroot.sh to remove initrd and vmlinuz from the
