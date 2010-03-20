@@ -1,1 +1,0 @@
-../arch-common/32-get-windows-gplpv-drivers.sh
