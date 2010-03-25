@@ -3,14 +3,28 @@ color cyan/blue white/blue
 splashimage /boot/grub/splash.xpm.gz
 timeout 30
 
-# Minimal dom0_mem=4096M for dom0 64bits? Meybe if we have a real machine with
-# 64Giga of RAM?
-title       Xen 3.2-1 / Debian GNU/Linux - live, kernel 2.6.26-2-xen
-kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M noreboot
+# Minimal dom0_mem=4096M for dom0 64bits? Meybe if we have a real machine with 64Giga of RAM? Is it really necessary?
+title       Xen 3.2-1 64 bits / Debian 64 bits dom0, kernel 2.6.26-2-xen-amd64
+kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M
 module      /live/vmlinuz-2.6.26-2-xen-amd64 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256
 module      /live/initrd.img-2.6.26-2-xen-amd64
 quiet
 
+# Safe Mode - 64 bits
+title       Xen 3.2-1 64 bits Safe Mode / Debian 64 bits dom0, kernel 2.6.26-2-xen-amd64
+kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M nosmp noreboot noirqbalance acpi=off noapic
+module      /live/vmlinuz-2.6.26-2-xen-amd64 boot=live username=livexen hostname=xenalive union=aufs ro console=tty0 max_loop=256 nousb
+module      /live/initrd.img-2.6.26-2-xen-amd64
+quiet
+
+# Serial Console Enabled - 64 bits
+title       Xen 3.2-1 64 bits Serial enabled / Debian 64 bits dom0, kernel 2.6.26-2-xen-amd64
+kernel      /live/xen-3.2-1-amd64.gz dom0_mem=640M com1=115200,8n1 console=com1,tty
+module      /live/vmlinuz-2.6.26-2-xen-amd64 boot=live username=livexen hostname=xenalive union=aufs ro xencons=ttyS0 max_loop=256 console=ttyS0,115200n8
+module      /live/initrd.img-2.6.26-2-xen-amd64
+quiet
+
+# Normal Debian live sesstion - Without Xen
 title       Debian GNU/Linux - live, kernel 2.6.26-2-amd64
 kernel      /live/vmlinuz-2.6.26-2-amd64 boot=live quiet splash username=livexen hostname=xenalive union=aufs
 initrd      /live/initrd.img-2.6.26-2-amd64
