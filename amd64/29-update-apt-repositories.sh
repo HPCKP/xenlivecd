@@ -1,0 +1,1 @@
+../arch-common/29-update-apt-repositories.sh
