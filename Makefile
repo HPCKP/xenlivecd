@@ -2,9 +2,12 @@
 iso-i386:
 	cd i386 && ./10-init-lh_config.sh
 	cd i386 && ./15-copy-some-stuff.sh
+	cd i386 && ./16-get-openvswitch.sh
 	cd i386 && ./17-get-convirture-tools.sh
+	cd i386 && ./19-cp-ovs-install-script.sh
 	cd i386 && ./20-run-lh_build.sh
 	cd i386 && ./25-copy-grub-menu.sh
+	cd i386 && ./29-update-apt-repositories.sh
 	cd i386 && ./30-prepare-binary-for-xen.sh
 	cd i386 && ./31-remove-kernel-of-chroot.sh
 	cd i386 && ./32-gen-windows-gplpv-drivers-iso.sh
@@ -30,9 +33,12 @@ clean-i386:
 iso-amd64:
 	cd amd64 && ./10-init-lh_config.sh
 	cd amd64 && ./15-copy-some-stuff.sh
+	cd amd64 && ./16-get-openvswitch.sh
 	cd amd64 && ./17-get-convirture-tools.sh
+	cd amd64 && ./19-cp-ovs-install-script.sh
 	cd amd64 && ./20-run-lh_build.sh
 	cd amd64 && ./25-copy-grub-menu.sh
+	cd amd64 && ./29-update-apt-repositories.sh
 	cd amd64 && ./30-prepare-binary-for-xen.sh
 	cd amd64 && ./31-remove-kernel-of-chroot.sh
 	cd amd64 && ./32-gen-windows-gplpv-drivers-iso.sh
