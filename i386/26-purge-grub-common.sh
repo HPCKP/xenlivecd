@@ -1,0 +1,1 @@
+../arch-common/26-purge-grub-common.sh
