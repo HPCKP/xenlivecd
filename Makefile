@@ -6,7 +6,6 @@ iso-i386:
 	cd i386 && ./17-get-convirture-tools.sh
 	cd i386 && ./20-run-lh_build.sh
 	cd i386 && ./25-copy-grub-menu.sh
-	cd i386 && ./26-purge-grub-common.sh
 	cd i386 && ./29-update-apt-repositories.sh
 	cd i386 && ./30-prepare-binary-for-xen.sh
 	cd i386 && ./31-remove-kernel-of-chroot.sh
@@ -37,7 +36,6 @@ iso-amd64:
 	cd amd64 && ./17-get-convirture-tools.sh
 	cd amd64 && ./20-run-lh_build.sh
 	cd amd64 && ./25-copy-grub-menu.sh
-	cd amd64 && ./26-purge-grub-common.sh
 	cd amd64 && ./29-update-apt-repositories.sh
 	cd amd64 && ./30-prepare-binary-for-xen.sh
 	cd amd64 && ./31-remove-kernel-of-chroot.sh
