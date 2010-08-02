@@ -9,7 +9,7 @@ fi
 case "$ARCH" in
     i386)
         cd /tmp
-        http://www.xncore.com/download/xn-suite_0.83-lenny1_i386.deb
+        wget -c http://www.xncore.com/download/xn-suite_0.83-lenny1_i386.deb
 #        wget -c http://www.xncore.com/download/xn-client_0.82-lenny1_i386.deb
         dpkg -i xn-suite_0.83-lenny1_i386.deb
         rm -f xn-suite_0.83-lenny1_i386.deb

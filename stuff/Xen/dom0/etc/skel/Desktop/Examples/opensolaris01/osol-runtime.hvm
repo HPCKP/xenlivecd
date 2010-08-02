@@ -64,7 +64,7 @@ vcpus=1
 # Random MACs are assigned if not given.
 #vif = [ 'type=ioemu, mac=00:16:3e:00:00:11, bridge=xenbr0, model=ne2k_pci' ]
 # type=ioemu specify the NIC is an ioemu device not netfront
-vif = [ 'type=ioemu, mac=06:b4:20:d4:d3:62, vifname=opensolaris01' ]
+vif = [ 'type=ioemu, mac=00:01:64:e2:46:98, vifname=opensolaris01' ]
 
 #----------------------------------------------------------------------------
 # Define the disk devices you want the domain to have access to, and

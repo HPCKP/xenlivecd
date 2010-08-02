@@ -12,7 +12,7 @@ lh_config \
     --apt apt \
     --apt-recommends disabled \
     --apt-secure disable \
-    --debconf-frontend dialog \
+    --debconf-frontend noninteractive \
     --debconf-priority high \
     --cache enabled \
     --bootloader grub \
