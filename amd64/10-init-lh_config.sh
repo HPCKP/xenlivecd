@@ -12,7 +12,7 @@ lh_config \
     --apt apt \
     --apt-recommends disabled \
     --apt-secure disable \
-    --debconf-frontend dialog \
+    --debconf-frontend noninteractive \
     --debconf-priority high \
     --cache enabled \
     --bootloader grub \
@@ -27,7 +27,7 @@ lh_config \
     --mirror-chroot http://ftp.br.debian.org/debian \
     --mirror-chroot-security http://security.debian.org/ \
     --mirror-binary http://ftp.br.debian.org/debian \
-    --categories "main non-free" \
+    --categories "main contrib non-free" \
     --checksums enabled \
     --initramfs live-initramfs \
     --distribution lenny \
