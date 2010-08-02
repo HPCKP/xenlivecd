@@ -15,15 +15,15 @@ case "$ARCH" in
         # This mkdir will not work on a different system!
         mkdir /lib/modules/2.6.26-2-xen-amd64
         
-        dpkg -i /root/openvswitch-common_0.99.2-0tcmc1_i386.deb
+        dpkg -i /root/openvswitch-common_1.0.1_i386.deb
         dpkg -i /root/openvswitch-datapath-module-2.6.26-2-686_0.99.2-0tcmc1_i386.deb
         dpkg -i /root/openvswitch-datapath-module-2.6.26-2-xen-686_0.99.2-0tcmc1_i386.deb
-        dpkg -i /root/openvswitch-pki_0.99.2-0tcmc1_all.deb
+        dpkg -i /root/openvswitch-pki_1.0.1_all.deb
         
         # NOTE: The installations of the next package will load the openvswitch_mod
         # kernel module, so, you need to have it in your build host (where the
-        # live-helper is running).
-        dpkg -i /root/openvswitch-switch_0.99.2-0tcmc1_i386.deb
+        # live-helper is running!).
+        dpkg -i /root/openvswitch-switch_1.0.1_i386.deb
         
         rm -f /root/openvswitch*
         
@@ -33,15 +33,15 @@ case "$ARCH" in
     ;;
     amd64)
 
-        dpkg -i /root/openvswitch-common_0.99.2-0tcmc1_amd64.deb
+        dpkg -i /root/openvswitch-common_1.0.1_amd64.deb
         dpkg -i /root/openvswitch-datapath-module-2.6.26-2-amd64_0.99.2-0tcmc1_amd64.deb
         dpkg -i /root/openvswitch-datapath-module-2.6.26-2-xen-amd64_0.99.2-0tcmc1_amd64.deb
-        dpkg -i /root/openvswitch-pki_0.99.2-0tcmc1_all.deb
+        dpkg -i /root/openvswitch-pki_1.0.1_all.deb
         
         # NOTE: The installations of the next package will load the openvswitch_mod
         # kernel module, so, you need to have it in your build host (where the
         # live-helper is running).
-        dpkg -i /root/openvswitch-switch_0.99.2-0tcmc1_amd64.deb
+        dpkg -i /root/openvswitch-switch_1.0.1_amd64.deb
                 
         rm -f /root/openvswitch*
 

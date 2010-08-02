@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Use this script by changing the line "(network-script network-bridge)" at the
+# file /etc/xen/xend-config.sxp to (network-script network-bridge-wrapper).
+# Use it only if you have more than one network card installed on your hardware.
+
+/etc/xen/scripts/network-bridge $1 netdev=eth0
+/etc/xen/scripts/network-bridge $1 netdev=eth1
+#/etc/xen/scripts/network-bridge $1 netdev=eth2
+#/etc/xen/scripts/network-bridge $1 netdev=eth3
