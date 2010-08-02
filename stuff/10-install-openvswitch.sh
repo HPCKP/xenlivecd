@@ -16,8 +16,8 @@ case "$ARCH" in
         mkdir /lib/modules/2.6.26-2-xen-amd64
         
         dpkg -i /root/openvswitch-common_1.0.1_i386.deb
-        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-686_0.99.2-0tcmc1_i386.deb
-        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-xen-686_0.99.2-0tcmc1_i386.deb
+        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-686_1.0.1_i386.deb
+        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-xen-686_1.0.1_i386.deb
         dpkg -i /root/openvswitch-pki_1.0.1_all.deb
         
         # NOTE: The installations of the next package will load the openvswitch_mod
@@ -34,8 +34,8 @@ case "$ARCH" in
     amd64)
 
         dpkg -i /root/openvswitch-common_1.0.1_amd64.deb
-        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-amd64_0.99.2-0tcmc1_amd64.deb
-        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-xen-amd64_0.99.2-0tcmc1_amd64.deb
+        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-amd64_1.0.1_amd64.deb
+        dpkg -i /root/openvswitch-datapath-module-2.6.26-2-xen-amd64_1.0.1_amd64.deb
         dpkg -i /root/openvswitch-pki_1.0.1_all.deb
         
         # NOTE: The installations of the next package will load the openvswitch_mod

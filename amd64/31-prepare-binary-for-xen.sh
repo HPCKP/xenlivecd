@@ -8,6 +8,3 @@
 
 # Copy 32 bits Hypervisor
 cp chroot/boot/xen-3.2-1-amd64.gz binary/live
-
-# Copy that grub menu version
-cp -f ../stuff/menu.lst_amd64 binary/boot/grub/menu.lst
