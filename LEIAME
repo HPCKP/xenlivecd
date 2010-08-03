@@ -34,27 +34,33 @@
  4- Rode ./15-copy-some-stuff.sh para copiar algumas coisas a serem incluídas
    na dom0;
 
- 5- Rode ./17-get-convirture-tools.sh para transferir o Convirture tools;
+ 5- Rode ./16-get-openvswitch.sh para baixar o OpenVSwitch;
 
- 6- Rode ./20-run-lh_build.sh como primeiro passo na criação iso;
+ 6- Rode ./17-get-convirture-tools.sh para transferir o Convirture tools;
+
+ 7- Rode ./20-run-lh_build.sh como primeiro passo na criação iso;
+
+ 8- Rode ./25-copy-grub-menu.sh para copiar o menu do GRUB;
+
+ 9- Rode ./26-purge-grub-common.sh para limpar o grub-common da dom0;
+
+ 10- Rode ./29-update-apt-repositories.sh para reconfigurar o sources.list da
+   dom0;
+
+ 11- Rode ./30-remake-squashfs.sh para recriar o sistema de arquivos Squash;
  
- 7- Rode ./30-prepare-binary-for-xen.sh para copiar o Xen para o diretório raiz
+ 12- Rode ./31-prepare-binary-for-xen.sh para copiar o Xen para o diretório raiz
    do CD;
  
- 8- Rode ./31-remove-kernel-of-chroot.sh para remover os arquivos initrd e
-   vmlinuz do sistema de arquivos squashfs da dom0. Isso irá liberar ~20MB na
-   imagem ISO final, uma vez que estes arquivos são copiados pelo live-helper
-   para o raiz do CD.
-
- 9- Rode ./32-get-windows-gplpv-drivers.sh para copiar os controladores de
-   dispositivo para o ISO final.
+ 13- Rode ./32-get-windows-gplpv-drivers.sh para copiar os controladores de
+   dispositivo para o ISO final;
  
- 10- Opicional: Rode ./33-copy-guests.sh para copiar as domUs previamente
+ 14- Opicional: Rode ./33-copy-guests.sh para copiar as domUs previamente
    confeccionadas para o raiz do CD;
 
- 11- Rode ./34-copy-source-to-iso.sh
+ 15- Rode ./34-copy-source-to-iso.sh para copiar os scripts para o live-helper;
 
- 12- Rode ./35-remake-iso.sh para refazer a imagem final do Live CD do Xen.
+ 16- Rode ./35-remake-iso.sh para refazer a imagem final do Live CD do Xen.
 
 
     Para limpar tudo e iniciar novamente, rode "make dist-clean" no diretório
