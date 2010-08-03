@@ -1,10 +1,13 @@
-#!/usr/bin/env xdg-open
 
 [Desktop Entry]
+Encoding=UTF-8
 Version=1.0
-Type=Link
-Icon[en_US]=gnome-panel-launcher
+Type=Application
+Terminal=false
+Icon[en_US]=iceweasel
 Name[en_US]=LEIAME
-URL=http://wiki.xensource.com/xenwiki/LiveCD
+Exec=iceweasel http://wiki.xen.org/xenwiki/QuickGuidePt
+Comment[en_US]=LEIAME - Guia Rápido em Português.
 Name=LEIAME
-Icon=gnome-panel-launcher
+Comment=LEIAME - Guia Rápido em Português.
+Icon=iceweasel

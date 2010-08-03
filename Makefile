@@ -8,16 +8,14 @@ iso-i386:
 	cd i386 && ./25-copy-grub-menu.sh
 	cd i386 && ./26-purge-grub-common.sh
 	cd i386 && ./29-update-apt-repositories.sh
-	cd i386 && ./30-prepare-binary-for-xen.sh
-	cd i386 && ./31-remove-kernel-of-chroot.sh
+	cd i386 && ./30-remake-squashfs.sh
+	cd i386 && ./31-prepare-binary-for-xen.sh
 	cd i386 && ./32-gen-windows-gplpv-drivers-iso.sh
 	cd i386 && ./35-remake-iso.sh
 
-burn-i386: iso-i386
-	cd i386 && ./burn
-
 plussource-i386:
 	cd i386 && ./34-copy-source-to-iso.sh
+	cd i386 && ./35-remake-iso.sh
 
 plusguests-i386:
 	cd i386 && ./33-ln-guests.sh
@@ -39,16 +37,14 @@ iso-amd64:
 	cd amd64 && ./25-copy-grub-menu.sh
 	cd amd64 && ./26-purge-grub-common.sh
 	cd amd64 && ./29-update-apt-repositories.sh
-	cd amd64 && ./30-prepare-binary-for-xen.sh
-	cd amd64 && ./31-remove-kernel-of-chroot.sh
+	cd amd64 && ./30-remake-squashfs.sh
+	cd amd64 && ./31-prepare-binary-for-xen.sh
 	cd amd64 && ./32-gen-windows-gplpv-drivers-iso.sh
 	cd amd64 && ./35-remake-iso.sh
 
-burn-amd64: iso-amd64
-	cd amd64 && ./burn
-
 plussource-amd64:
 	cd amd64 && ./34-copy-source-to-iso.sh
+	cd amd64 && ./35-remake-iso.sh
 
 plusguests-amd64:
 	cd amd64 && ./33-ln-guests.sh
@@ -67,4 +63,4 @@ amd64: iso-amd64
 
 dist-clean: clean-i386 clean-amd64
 
-.PHONY: iso-i386 burn-i386 plusguests-i386 clean-i386 iso-amd64 burn-amd64 plusguests-amd64 clean-amd64 clean-all
+.PHONY: iso-i386 plusguests-i386 clean-i386 iso-amd64 plusguests-amd64 clean-amd64 clean-all

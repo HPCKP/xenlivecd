@@ -1,10 +1,13 @@
-#!/usr/bin/env xdg-open
 
 [Desktop Entry]
+Encoding=UTF-8
 Version=1.0
-Type=Link
-Icon[en_US]=gnome-panel-launcher
+Type=Application
+Terminal=false
+Icon[en_US]=iceweasel
 Name[en_US]=README
-URL=http://wiki.xensource.com/xenwiki/LiveCD
+Exec=iceweasel http://wiki.xen.org/xenwiki/QuickGuideEn
+Comment[en_US]=README - Quick Guide in English
 Name=README
-Icon=gnome-panel-launcher
+Comment=README - Quick Guide in English
+Icon=iceweasel
