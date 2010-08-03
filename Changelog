@@ -1,7 +1,5 @@
-0.8.3 English translation of the Quick Guide reveiwed, Xen Windows GPL PV
-drivers added, include this source generator to the final iso image. More 
-options enabled in xen-config.sxp. Kernel upgrade on Ubuntu domUs and on
-Debian Lenny dom0.
+0.8.3 Quick Guides reveiwed and moved to the Wiki Pages, Xen Windows GPL PV
+drivers added. More options enabled in xen-config.sxp.
 
 0.8.2 Added redhat-cluster-suite, aoetools, vblade-persist, vblade, vlan,
 vtun, vde2 and vdetelweb to package list.
