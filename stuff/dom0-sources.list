@@ -1,11 +1,8 @@
-# Debian Lenny repository.
-deb http://ftp.br.debian.org/debian/ lenny main contrib non-free
-#deb-src http://ftp.br.debian.org/debian/ lenny main contrib non-free
+deb http://ftp.caliu.cat/debian/ squeeze main non-free universe contrib
+deb-src http://ftp.caliu.cat/debian/ squeeze main non-free universe contrib
 
-# Debian security updates.
-deb http://security.debian.org/ lenny/updates main contrib non-free
-#deb-src http://security.debian.org/ lenny/updates main contrib non-free
+deb http://security.debian.org/ squeeze/updates main contrib universe
+deb-src http://security.debian.org/ squeeze/updates main contrib
 
-# Debian volatile updates.
-deb http://volatile.debian.org/debian-volatile lenny/volatile main contrib non-free
-#deb-src http://volatile.debian.org/debian-volatile lenny/volatile main contrib non-free
+deb http://ftp.caliu.cat/debian/ squeeze-updates main contrib non-free
+deb-src http://ftp.caliu.cat/debian/ squeeze-updates main contrib non-free

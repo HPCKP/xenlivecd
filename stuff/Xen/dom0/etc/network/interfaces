@@ -1,0 +1,105 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth0
+
+auto xenbr0
+iface xenbr0 inet dhcp
+
+bridge-ports eth0
+bridge_maxwait 0
+
+#DMZ Bridge
+auto dmzbr0
+iface dmzbr0 inet static
+  address 172.16.1.254
+  netmask 255.255.255.0
+  network 172.16.1.0
+  broadcast 172.16.1.255
+  #pre-up /etc/init.d/firewall.sh start
+  pre-up iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -d 172.16.1.0/24 -j ACCEPT
+  pre-up iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -j MASQUERADE
+  pre-up brctl addbr dmzbr0
+  pre-up brctl stp dmzbr0 off
+  pre-up brctl addif dmzbr0 dummy0
+  pre-up ifconfig dummy0 0.0.0.0
+  pre-up echo '1' > /proc/sys/net/ipv4/ip_forward
+  post-down brctl delif dmzbr0 dummy0
+  #post-down /etc/init.d/firewall.sh stop
+
+# CSIA Bridge
+auto xenbr1
+iface xenbr1 inet static
+  address 192.168.1.254
+  netmask 255.255.255.0
+  network 192.168.1.0
+  broadcast 192.168.1.255
+  #pre-up /etc/init.d/firewall.sh start
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -d 192.168.1.0/24 -j ACCEPT
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE
+  pre-up brctl addbr xenbr1
+  pre-up brctl stp xenbr1 off
+  pre-up brctl addif xenbr1 dummy1
+  pre-up ifconfig dummy1 0.0.0.0
+  pre-up echo '1' > /proc/sys/net/ipv4/ip_forward
+  post-down brctl delif xenbr1 dummy1
+  #post-down /etc/init.d/firewall.sh stop
+
+# CASL Bridge
+auto xenbr2
+iface xenbr2 inet static
+  address 192.168.2.254
+  netmask 255.255.255.0
+  network 192.168.2.0
+  broadcast 192.168.2.255
+  #pre-up /etc/init.d/firewall.sh start
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -d 192.168.2.0/24 -j ACCEPT
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -j MASQUERADE
+  pre-up brctl addbr xenbr2
+  pre-up brctl stp xenbr2 off
+  pre-up brctl addif xenbr2 dummy2
+  pre-up ifconfig dummy2 0.0.0.0
+  pre-up echo '1' > /proc/sys/net/ipv4/ip_forward
+  post-down brctl delif xenbr2 dummy2
+  #post-down /etc/init.d/firewall.sh stop
+
+# LPIC Bridge
+auto xenbr3
+iface xenbr3 inet static
+  address 192.168.3.254
+  netmask 255.255.255.0
+  network 192.168.3.0
+  broadcast 192.168.3.255
+  #pre-up /etc/init.d/firewall.sh start
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.3.0/24 -d 192.168.3.0/24 -j ACCEPT
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.3.0/24 -j MASQUERADE
+  pre-up brctl addbr xenbr3
+  pre-up brctl stp xenbr3 off
+  pre-up brctl addif xenbr3 dummy3
+  pre-up ifconfig dummy3 0.0.0.0
+  pre-up echo '1' > /proc/sys/net/ipv4/ip_forward
+  post-down brctl delif xenbr3 dummy3
+  #post-down /etc/init.d/firewall.sh stop
+
+# GridEngine Bridge
+auto xenbr4
+iface xenbr4 inet static
+  address 192.168.4.254
+  netmask 255.255.255.0
+  network 192.168.4.0
+  broadcast 192.168.4.255
+  #pre-up /etc/init.d/firewall.sh start
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.4.0/24 -d 192.168.4.0/24 -j ACCEPT
+  pre-up iptables -t nat -A POSTROUTING -s 192.168.4.0/24 -j MASQUERADE
+  pre-up brctl addbr xenbr4
+  pre-up brctl stp xenbr4 off
+  pre-up brctl addif xenbr4 dummy4
+  pre-up ifconfig dummy4 0.0.0.0
+  pre-up echo '1' > /proc/sys/net/ipv4/ip_forward
+  post-down brctl delif xenbr4 dummy4
+  #post-down /etc/init.d/firewall.sh stop

@@ -7,4 +7,4 @@
 # to generate grub's menu.lst for the live CD from binary/ contents... ;-)
 
 # Copy 32 bits Hypervisor
-cp chroot/boot/xen-3.2-1-amd64.gz binary/live
+cp chroot/boot/xen-*.gz binary/live
