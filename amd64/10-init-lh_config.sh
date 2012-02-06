@@ -4,7 +4,7 @@
 TODAY=`date +%Y%m%d`
 
 # Run lh_config to prepare all the basic stuff
-lh_config \
+lh config \
     -a amd64 \
     -b iso \
     -k "xen-amd64 amd64" \
